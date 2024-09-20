@@ -1,35 +1,42 @@
 const form = document.getElementById('form-deposito');
 const valorOrcacao = document.getElementById('orcacao');
 const valorGastos = document.getElementById('gasto');
-let formValido = false;
 
 function valorTotal() {
   const orcacao = parseFloat(valorOrcacao.value);
   const gastos = parseFloat(valorGastos.value);
-  return orcacao >= gastos;
+  return orcacao > gastos; // Verifica se o orçamento é maior que os gastos
 }
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
+  
   const mensagemSucesso = `Montante de: <b>${valorOrcacao.value}</b> depositado para o cliente: <b>${valorGastos.value}</b>`;
-  const mensagemErro = `O valor do <b>orçamento</b> precisa ser menor que o b>gasto real!</b>`;
+  const mensagemErro = `O valor do <b>gasto real</b> precisa ser menor que o <b>orçamento!</b>`;
+  
+  const formValido = valorTotal();
+  
+  const containerMensagemSucesso = document.querySelector('.sucess-message');
+  const containerMensagemErro = document.querySelector('.error-message');
 
-  formValido = valorTotal();
+  // Limpa mensagens anteriores
+  containerMensagemSucesso.innerHTML = '';
+  containerMensagemErro.innerHTML = '';
+
   if (formValido) {
-    const containerMensagemSucesso = document.querySelector('.sucess-message');
     containerMensagemSucesso.innerHTML = mensagemSucesso;
     containerMensagemSucesso.style.display = 'block';
-
+    
     valorOrcacao.value = '';
     valorGastos.value = '';
+    containerMensagemErro.style.display = 'none'; 
   } else {
-    valorGastos.classList.add('error');
-    containerMensagemErro.innerHTML = mensagemErro;
+    containerMensagemErro.style.display = 'block'; 
   }
 });
 
 valorOrcacao.addEventListener('blur', function(e) {
-  formValido = valorTotal();
+  const formValido = valorTotal();
 
   if (!formValido) {
     valorOrcacao.classList.add('error');

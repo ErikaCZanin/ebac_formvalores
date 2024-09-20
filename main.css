@@ -56,11 +56,12 @@ button:hover {
     color: #fff;
     margin-bottom: 8px;
     display: none;
-    border: '1px solid red'; 
+    border: 1px solid red; 
 }
 
 input.error {
     color: red;
     border-color: red;
     outline-color: red;
+    padding: 8px;
 }
