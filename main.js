@@ -11,7 +11,7 @@ function valorTotal() {
 form.addEventListener('submit', function(e) {
   e.preventDefault();
   
-  const mensagemSucesso = `Montante de: <b>${valorOrcacao.value}</b> depositado para o cliente: <b>${valorGastos.value}</b>`;
+  const mensagemSucesso = `Dentro do <b>orçamento!</b>`;
   const mensagemErro = `O valor do <b>gasto real</b> precisa ser menor que o <b>orçamento!</b>`;
   
   const formValido = valorTotal();
