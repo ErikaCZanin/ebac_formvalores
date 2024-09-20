@@ -1,51 +1,42 @@
 const form = document.getElementById('form-deposito');
-const nomeBeneficiario = document.getElementById('nome-beneficiario');
+const valorOrcacao = document.getElementById('orcacao');
+const valorGastos = document.getElementById('gasto');
 let formValido = false;
 
-function validaNome(nomeCompleto) {
-    const nomeCompletoArray = nomeCompleto.split(' ');
-    return nomeCompletoArray.length >= 2;
+function valorTotal() {
+  const orcacao = parseFloat(valorOrcacao.value);
+  const gastos = parseFloat(valorGastos.value);
+  return orcacao >= gastos;
 }
 
-form.addEventListener('submit',function(e)
-{
+form.addEventListener('submit', function(e) {
   e.preventDefault();
-  const numeroContaBeneficiario = document.getElementById('numero-conta');
-  const valorDeposito = document.getElementById('valor-deposito')
-  const mensagemSucesso = `Montante de: <b>${valorDeposito.value}</b> depositado para o cliente: <b>${nomeBeneficiario.value}</b> - conta: <b>${numeroContaBeneficiario.value}</b>`;
+  const mensagemSucesso = `Montante de: <b>${valorOrcacao.value}</b> depositado para o cliente: <b>${valorGastos.value}</b>`;
+  const mensagemErro = `O valor do <b>orçamento</b> precisa ser menor que o b>gasto real!</b>`;
 
-  formValido = validaNome(nomeBeneficiario.value)
+  formValido = valorTotal();
   if (formValido) {
     const containerMensagemSucesso = document.querySelector('.sucess-message');
     containerMensagemSucesso.innerHTML = mensagemSucesso;
     containerMensagemSucesso.style.display = 'block';
 
-      nomeBeneficiario.value = '';
-      numeroContaBeneficiario.value = '';
-      valorDeposito.value = '';
+    valorOrcacao.value = '';
+    valorGastos.value = '';
+  } else {
+    valorGastos.classList.add('error');
+    containerMensagemErro.innerHTML = mensagemErro;
   }
-  else {
-    nomeBeneficiario.style.border = '1px solid red'
+});
+
+valorOrcacao.addEventListener('blur', function(e) {
+  formValido = valorTotal();
+
+  if (!formValido) {
+    valorOrcacao.classList.add('error');
     document.querySelector('.error-message').style.display = 'block';
-  }
-
-}
-)
-
-nomeBeneficiario.addEventListener('keyup', function(e)
-{
-   console.log(e.target.value);
-   formValido = validaNome(e.target.value);
-
-   if (!formValido) {
-    nomeBeneficiario.classList.add('error');
-    //nomeBeneficiario.style.border = '1px solid red';
-    document.querySelector('.error-message').style.display = 'block';
-  }
-  else {
-    nomeBeneficiario.classList.remove('error');
+  } else {
+    valorOrcacao.classList.remove('error');
     document.querySelector('.error-message').style.display = 'none';
+    valorOrcacao.style.border = ''; 
   }
-}
-)
-
+});
