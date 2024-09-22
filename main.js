@@ -5,14 +5,14 @@ const valorGastos = document.getElementById('gasto');
 function valorTotal() {
   const orcacao = parseFloat(valorOrcacao.value);
   const gastos = parseFloat(valorGastos.value);
-  return orcacao > gastos; // Verifica se o orçamento é maior que os gastos
+  return gastos < orcacao; // Verifica se o gasto é maior que o orçamento
 }
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
   
   const mensagemSucesso = `Dentro do <b>orçamento!</b>`;
-  const mensagemErro = `O valor do <b>gasto real</b> precisa ser menor que o <b>orçamento!</b>`;
+  const mensagemErro = `Precisa ser um valor menor que o orçamento!`;
   
   const formValido = valorTotal();
   
@@ -31,7 +31,8 @@ form.addEventListener('submit', function(e) {
     valorGastos.value = '';
     containerMensagemErro.style.display = 'none'; 
   } else {
-    containerMensagemErro.style.display = 'block'; 
+    containerMensagemSucesso.innerHTML = mensagemSucesso;
+    containerMensagemSucesso.style.display = 'block';
   }
 });
 

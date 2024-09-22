@@ -47,11 +47,12 @@ button:hover {
     padding: 16px;
     color: #fff;
     display: none;
+    border: 1px solid #2ecc71;
 }
 
 .error-message {
     font-size: 12px;
-    padding: 8px;
+    padding: 16px;
     background-color: red;
     color: #fff;
     margin-bottom: 8px;
